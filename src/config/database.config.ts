@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from './snake-naming.strategy';
 
 export const getDataBaseConfig = (
   configService: ConfigService,
@@ -9,4 +10,5 @@ export const getDataBaseConfig = (
   synchronize: configService.getOrThrow<string>('DB_SYNCHRONIZE') === 'true',
   logging: configService.getOrThrow<string>('NODE_ENV') === 'development',
   autoLoadEntities: true,
+  namingStrategy: new SnakeNamingStrategy(),
 });
