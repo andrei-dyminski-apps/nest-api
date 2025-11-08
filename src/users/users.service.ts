@@ -23,7 +23,7 @@ export class UsersService {
     });
   }
 
-  async findOne(id: number): Promise<UserEntity> {
+  async findOne(id: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { id },
       relations: ['offers'],
@@ -36,13 +36,13 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<UserEntity> {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {
     const user = await this.findOne(id);
     Object.assign(user, updateUserDto);
     return await this.userRepository.save(user);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     await this.userRepository.delete(id);
   }
 }

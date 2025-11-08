@@ -23,7 +23,7 @@ export class OffersService {
     });
   }
 
-  async findOne(id: number): Promise<OfferEntity> {
+  async findOne(id: string): Promise<OfferEntity> {
     const offer = await this.offerRepository.findOne({
       where: { id },
       relations: ['user'],
@@ -37,7 +37,7 @@ export class OffersService {
   }
 
   async update(
-    id: number,
+    id: string,
     updateOfferDto: UpdateOfferDto,
   ): Promise<OfferEntity> {
     const offer = await this.findOne(id);
@@ -45,7 +45,7 @@ export class OffersService {
     return await this.offerRepository.save(offer);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     await this.offerRepository.delete(id);
   }
 }

@@ -11,8 +11,8 @@ import { UserEntity } from '../../users/entities/user.entity';
 
 @Entity('offers')
 export class OfferEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   title: string;
@@ -26,8 +26,8 @@ export class OfferEntity {
   @Column({ default: true })
   isActive: boolean;
 
-  @Column()
-  userId: number;
+  @Column('uuid')
+  userId: string;
 
   @ManyToOne(() => UserEntity, (user) => user.offers, {
     onDelete: 'CASCADE',
