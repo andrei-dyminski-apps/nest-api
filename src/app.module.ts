@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { OffersModule } from './offers/offers.module';
+import { FavoritesModule } from './favorites/favorites.module';
 import { getDataBaseConfig } from './config/database.config';
 
 @Module({
@@ -19,6 +20,7 @@ import { getDataBaseConfig } from './config/database.config';
     }),
     UsersModule,
     OffersModule,
+    FavoritesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

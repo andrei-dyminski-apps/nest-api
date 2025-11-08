@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { UserEntity } from '../../users/entities/user.entity';
+import { FavoriteEntity } from '../../favorites/entities/favorite.entity';
 
 @Entity('offers')
 export class OfferEntity {
@@ -40,4 +42,7 @@ export class OfferEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => FavoriteEntity, (favorite) => favorite.offer)
+  followers: FavoriteEntity[];
 }

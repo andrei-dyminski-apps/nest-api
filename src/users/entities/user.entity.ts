@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { OfferEntity } from '../../offers/entities/offer.entity';
+import { FavoriteEntity } from '../../favorites/entities/favorite.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -36,4 +37,7 @@ export class UserEntity {
 
   @OneToMany(() => OfferEntity, (offer) => offer.user)
   offers: OfferEntity[];
+
+  @OneToMany(() => FavoriteEntity, (favorite) => favorite.user)
+  favorites: FavoriteEntity[];
 }
