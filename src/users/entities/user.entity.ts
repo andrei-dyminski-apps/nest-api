@@ -9,10 +9,19 @@ import {
 import { OfferEntity } from '../../offers/entities/offer.entity';
 import { FavoriteEntity } from '../../favorites/entities/favorite.entity';
 
+export enum UserRole {
+  PERFORMER = 'performer',
+  BRAND = 'brand',
+  ADMIN = 'admin',
+}
+
 @Entity('users')
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ type: 'varchar' })
+  role: UserRole;
 
   @Column({ unique: true })
   email: string;
