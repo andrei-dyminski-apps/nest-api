@@ -23,16 +23,16 @@ export class UserEntity {
   @Column({ type: 'varchar' })
   role: UserRole;
 
-  @Column({ unique: true })
+  @Column({ type: 'varchar', length: 255, unique: true })
   email: string;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   firstName: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   lastName: string;
 
   @Column({ default: true })
