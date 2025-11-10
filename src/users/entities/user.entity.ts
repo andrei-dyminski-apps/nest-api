@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 import { OfferEntity } from '../../offers/entities/offer.entity';
 import { FavoriteEntity } from '../../favorites/entities/favorite.entity';
 
@@ -31,6 +32,7 @@ export class UserEntity {
   email: string;
 
   @ApiProperty({ description: 'User password (hashed)', example: 'hashedpassword' })
+  @Exclude()
   @Column()
   password: string;
 
