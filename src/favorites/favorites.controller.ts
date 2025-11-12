@@ -14,6 +14,7 @@ import {
   ApiResponse,
   ApiParam,
   ApiQuery,
+  ApiBody,
 } from '@nestjs/swagger';
 import { FavoritesService } from './favorites.service';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
@@ -25,6 +26,19 @@ export class FavoritesController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new favorite' })
+  @ApiBody({
+    type: CreateFavoriteDto,
+    description: 'Favorite creation data',
+    examples: {
+      example1: {
+        summary: 'Create a favorite',
+        value: {
+          userId: '63a7c6d8-adf6-4fdd-8455-24f6722a020d',
+          offerId: 'afcc8589-acd1-4de4-b87a-d626f73d207d',
+        },
+      },
+    },
+  })
   @ApiResponse({ status: 201, description: 'Favorite created successfully' })
   @ApiResponse({ status: 400, description: 'Invalid input' })
   create(@Body() createFavoriteDto: CreateFavoriteDto) {
