@@ -4,15 +4,22 @@ import { Repository } from 'typeorm';
 import { CreateOfferDto } from './dto/create-offer.dto';
 import { UpdateOfferDto } from './dto/update-offer.dto';
 import { OfferEntity } from './entities/offer.entity';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class OffersService {
   constructor(
     @InjectRepository(OfferEntity)
     private readonly offerRepository: Repository<OfferEntity>,
+    private readonly usersService: UsersService,
   ) {}
 
   async create(createOfferDto: CreateOfferDto): Promise<OfferEntity> {
+    const user = await this.usersService.findOne(createOfferDto.userId);
+    if (!user) {
+      throw new NotFoundException('User not found!');
+    }
+
     const offer = this.offerRepository.create(createOfferDto);
     return await this.offerRepository.save(offer);
   }

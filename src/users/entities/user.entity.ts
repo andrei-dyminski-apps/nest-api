@@ -19,11 +19,18 @@ export enum UserRole {
 
 @Entity('users')
 export class UserEntity {
-  @ApiProperty({ description: 'User UUID', example: '123e4567-e89b-12d3-a456-426614174000' })
+  @ApiProperty({
+    description: 'User UUID',
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty({ description: 'User role', enum: UserRole, example: UserRole.PERFORMER })
+  @ApiProperty({
+    description: 'User role',
+    enum: UserRole,
+    example: UserRole.PERFORMER,
+  })
   @Column({ type: 'varchar' })
   role: UserRole;
 
@@ -31,7 +38,10 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 255, unique: true })
   email: string;
 
-  @ApiProperty({ description: 'User password (hashed)', example: 'hashedpassword' })
+  @ApiProperty({
+    description: 'User password (hashed)',
+    example: 'hashedpassword',
+  })
   @Exclude()
   @Column()
   password: string;
@@ -48,19 +58,33 @@ export class UserEntity {
   @Column({ default: true })
   isActive: boolean;
 
-  @ApiProperty({ description: 'User creation date', example: '2024-01-01T00:00:00.000Z' })
+  @ApiProperty({
+    description: 'User creation date',
+    example: '2024-01-01T00:00:00.000Z',
+  })
   @CreateDateColumn()
   createdAt: Date;
 
-  @ApiProperty({ description: 'User last update date', example: '2024-01-01T00:00:00.000Z' })
+  @ApiProperty({
+    description: 'User last update date',
+    example: '2024-01-01T00:00:00.000Z',
+  })
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ApiProperty({ type: () => OfferEntity, isArray: true, description: 'User offers' })
+  @ApiProperty({
+    type: () => OfferEntity,
+    isArray: true,
+    description: 'User offers',
+  })
   @OneToMany(() => OfferEntity, (offer) => offer.user)
   offers: OfferEntity[];
 
-  @ApiProperty({ type: () => FavoriteEntity, isArray: true, description: 'User favorites' })
+  @ApiProperty({
+    type: () => FavoriteEntity,
+    isArray: true,
+    description: 'User favorites',
+  })
   @OneToMany(() => FavoriteEntity, (favorite) => favorite.user)
   favorites: FavoriteEntity[];
 }

@@ -3,16 +3,29 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { FavoriteEntity } from './entities/favorite.entity';
+import { UsersService } from '../users/users.service';
+import { OffersService } from '../offers/offers.service';
 
 @Injectable()
 export class FavoritesService {
   constructor(
     @InjectRepository(FavoriteEntity)
     private readonly favoritesRepository: Repository<FavoriteEntity>,
+    private readonly usersService: UsersService,
+    private readonly offersService: OffersService,
   ) {}
 
   async create(createFavoriteDto: CreateFavoriteDto): Promise<FavoriteEntity> {
     const { userId, offerId } = createFavoriteDto;
+
+    await this.usersService.findOne(userId);
+    await this.offersService.findOne(offerId);
+
+    const existedFavorites = await this.findAll({ userId, offerId });
+    if (existedFavorites.length > 0) {
+      throw new NotFoundException('Favorite already exists!');
+    }
+
     const favorite = this.favoritesRepository.create({ userId, offerId });
     return await this.favoritesRepository.save(favorite);
   }
