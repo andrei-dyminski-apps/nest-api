@@ -38,12 +38,14 @@ export class FavoritesController {
     required: false,
     description: 'Filter by user UUID',
     type: 'string',
+    example: '63a7c6d8-adf6-4fdd-8455-24f6722a020d',
   })
   @ApiQuery({
     name: 'offerId',
     required: false,
     description: 'Filter by offer UUID',
     type: 'string',
+    example: 'afcc8589-acd1-4de4-b87a-d626f73d207d',
   })
   @ApiResponse({ status: 200, description: 'Returns all favorites' })
   findAll(
