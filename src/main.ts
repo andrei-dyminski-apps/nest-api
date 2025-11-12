@@ -1,5 +1,6 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
+import { DatabaseExceptionFilter } from './common/filters/database-exception.filter';
 import { AppModule } from './app.module';
 import { setupSwagger } from './utils/swagger.util';
 
@@ -15,6 +16,8 @@ async function bootstrap() {
   );
 
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
+  app.useGlobalFilters(new DatabaseExceptionFilter());
 
   setupSwagger(app);
 
