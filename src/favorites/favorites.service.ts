@@ -54,10 +54,16 @@ export class FavoritesService {
     return await this.favoritesRepository.find({
       where: Object.keys(where).length > 0 ? where : undefined,
       relations,
+      order: { createdAt: 'DESC' },
     });
   }
 
   async remove(id: string): Promise<void> {
+    const favorite = await this.favoritesRepository.findOne({ where: { id } });
+    if (!favorite) {
+      throw new NotFoundException(`Favorite with ID ${id} not found`);
+    }
+
     const result = await this.favoritesRepository.delete(id);
 
     if (result.affected === 0) {

@@ -27,6 +27,7 @@ export class OffersService {
   async findAll(): Promise<OfferEntity[]> {
     return await this.offerRepository.find({
       relations: ['user'],
+      order: { createdAt: 'DESC' },
     });
   }
 
@@ -53,6 +54,7 @@ export class OffersService {
   }
 
   async remove(id: string): Promise<void> {
+    await this.findOne(id);
     await this.offerRepository.delete(id);
   }
 }
